@@ -66,7 +66,9 @@ add_compile_options(
 
 include_directories(include)
 
+add_library(modules src/module/wire.cpp)
 add_executable(executable src/main.cpp src/ktanehack.cpp)
+target_link_libraries(executable modules)
 
 add_custom_target(run
   COMMAND executable < ${CMAKE_SOURCE_DIR}/input

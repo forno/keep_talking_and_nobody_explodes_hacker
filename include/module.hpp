@@ -9,10 +9,9 @@ namespace ktanehack
 class Module
 {
 public:
-  Module() = delete;
   virtual ~Module() = default;
 
-  virtual void defuse(std::istream& is) = 0;
+  virtual void defuse(std::istream& is, std::ostream& os) = 0;
 };
 
 }
