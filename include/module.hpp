@@ -3,6 +3,8 @@
 
 #include <iosfwd>
 
+#include "bomb_information.hpp"
+
 namespace ktanehack
 {
 
@@ -11,7 +13,7 @@ class Module
 public:
   virtual ~Module() = default;
 
-  virtual void defuse(std::istream& is, std::ostream& os) = 0;
+  virtual void defuse(std::istream& is, std::ostream& os, BombInformation& bomb) = 0;
 };
 
 }

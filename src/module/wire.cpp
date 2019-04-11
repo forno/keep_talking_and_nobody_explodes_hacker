@@ -14,7 +14,7 @@ ktanehack::WireModule::WireModule(std::istream& is)
 {
 }
 
-void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os)
+void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack::BombInformation& bomb)
 {
   using xmaho::input::get_value;
 

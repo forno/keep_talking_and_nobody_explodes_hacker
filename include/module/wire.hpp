@@ -14,7 +14,7 @@ public:
 
   WireModule(std::istream& is);
 
-  void defuse(std::istream& is, std::ostream& os) override;
+  void defuse(std::istream& is, std::ostream& os, BombInformation& bomb) override;
 
 private:
   int wire_count;
