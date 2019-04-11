@@ -9,6 +9,12 @@
 namespace ktanehack
 {
 
+void show_modules(std::ostream& os)
+{
+  os << "Modules:\n"
+        "  wire: horizon wire (type: w/wire/hw)\n";
+}
+
 std::unique_ptr<Module> get_module(std::istream& is)
 {
   static const std::unordered_map<std::string, std::function<std::unique_ptr<Module>(std::istream&)>> module_map{
