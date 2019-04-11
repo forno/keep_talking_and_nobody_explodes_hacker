@@ -16,5 +16,28 @@ ktanehack::WireModule::WireModule(std::istream& is)
 
 void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os)
 {
-  os << "Wire count: " << wire_count << '\n';
+  using xmaho::input::get_value;
+
+  switch (wire_count) {
+  case 3:
+    os << "No RED wire? true(1)/false(0)\n";
+    if (get_value<bool>(is)) {
+      os << "Cut: 2 (The second wire)\n";
+      return;
+    }
+    os << "Is last WHITE? true(1)/false(0)\n";
+    if (get_value<bool>(is)) {
+      os << "Cut: Last wire (The third)\n";
+      return;
+    }
+    os << "No BLUE wire? true(1)/false(0)\n";
+    if (get_value<bool>(is)) {
+      os << "Cut: Last wire (The third)";
+      return;
+    }
+    os << "Cut: Last BLUE wire\n";
+    return;
+  default:
+    os << "Error: Out of range\n";
+  }
 }
