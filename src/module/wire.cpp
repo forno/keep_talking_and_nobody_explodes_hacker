@@ -20,23 +20,59 @@ void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack
 
   switch (wire_count) {
   case 3:
-    os << "No RED wire? true(1)/false(0)\n";
-    if (get_value<bool>(is)) {
-      os << "Cut: 2 (The second wire)\n";
+    os << "Does RED wire exist? true(1)/false(0)\n";
+    if (!get_value<bool>(is)) {
+      os << "Cut: 2(The second wire)\n";
       return;
     }
+
     os << "Is last WHITE? true(1)/false(0)\n";
     if (get_value<bool>(is)) {
       os << "Cut: Last wire (The third)\n";
       return;
     }
-    os << "No BLUE wire? true(1)/false(0)\n";
+
+    os << "Does BLUE wire exist? true(1)/false(0)\n";
     if (get_value<bool>(is)) {
-      os << "Cut: Last wire (The third)";
+      os << "Cut: Last BLUE wire\n";
       return;
     }
-    os << "Cut: Last BLUE wire\n";
+    os << "Cut: Last wire (The third)";
     return;
+  case 4:
+    {
+      os << "Please count RED wires\n";
+      const auto red_count{get_value<int>(is)};
+      if (red_count >= 2) {
+        if (bomb.is_serial_last_value_odd()) {
+          os << "Cut: Last RED wire\n";
+          return;
+        }
+      }
+
+      if (red_count == 0) {
+        os << "Is last Yellow? true(1)/false(0)\n";
+        if (get_value<bool>(is)) {
+          os << "Cut: First wire\n";
+          return;
+        }
+      }
+
+      os << "Just one BLUE wires? true(1)/false(0)\n";
+      if (get_value<bool>(is)) {
+        os << "Cut: First wire\n";
+        return;
+      }
+
+      os << "Count of YELLOW is over 1(2 <= YELLOW)? true(1)/false(0)\n";
+      if (get_value<bool>(is)) {
+        os << "Cut: Last wire\n";
+        return;
+      }
+      os << "Cut: 2(The second wire)\n";
+      return;
+    }
+
   default:
     os << "Error: Out of range\n";
   }
