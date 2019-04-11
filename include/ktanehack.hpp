@@ -10,8 +10,6 @@
 namespace ktanehack
 {
 
-void show_modules(std::ostream& os);
-
 std::unique_ptr<Module> get_module(std::istream& is, std::ostream& os);
 
 }

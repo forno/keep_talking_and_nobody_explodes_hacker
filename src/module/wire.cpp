@@ -4,19 +4,12 @@
 
 #include <xmaho/input/input.hpp>
 
-void ktanehack::WireModule::show_construct_message(std::ostream& os)
-{
-  os << "Please input wire count: \n";
-}
-
-ktanehack::WireModule::WireModule(std::istream& is)
-  : wire_count{xmaho::input::get_value<int>(is)}
-{
-}
-
 void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack::BombInformation& bomb)
 {
   using xmaho::input::get_value;
+
+  os << "Please input wire count: \n";
+  const auto wire_count{get_value<int>(is)};
 
   switch (wire_count) {
   case 3:
@@ -37,7 +30,7 @@ void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack
       os << "Cut: Last BLUE wire\n";
       return;
     }
-    os << "Cut: Last wire (The third)";
+    os << "Cut: Last wire (The third)\n";
     return;
   case 4:
     {
@@ -92,16 +85,16 @@ void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack
       }
     }
 
-    os << "Just one Black wires? [true(1)/false(0)]";
+    os << "Just one Black wires? [true(1)/false(0)]\n";
     if (get_value<bool>(is)) {
-      os << "Count of YELLOW is over 1(2 <= YELLOW)? [true(1)/false(0)]";
+      os << "Count of YELLOW is over 1(2 <= YELLOW)? [true(1)/false(0)]\n";
       if (get_value<bool>(is)) {
         os << "Cut: First wire\n";
         return;
       }
     }
 
-    os << "Does BLACK wire exist? [true(1)/false(0)]";
+    os << "Does BLACK wire exist? [true(1)/false(0)]\n";
     if (get_value<bool>(is)) {
       os << "Cut: First wire\n";
       return;
@@ -121,14 +114,14 @@ void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack
       }
 
       if (yellow_count == 1) {
-        os << "Count of WHITE is over 1(2 <= WHITE)? [true(1)/false(0)]";
+        os << "Count of WHITE is over 1(2 <= WHITE)? [true(1)/false(0)]\n";
         if (get_value<bool>(is)) {
           os << "Cut: 4(The fourth wire)\n";
           return;
         }
       }
 
-      os << "Does RED wire exist? [true(1)/false(0)]";
+      os << "Does RED wire exist? [true(1)/false(0)]\n";
       if (get_value<bool>(is)) {
         os << "Cut: 4(The fourth wire)\n";
         return;
