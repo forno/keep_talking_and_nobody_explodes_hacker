@@ -3,6 +3,8 @@
 
 #include <iosfwd>
 #include <optional>
+#include <string>
+#include <unordered_map>
 
 namespace ktanehack
 {
@@ -20,12 +22,15 @@ public:
   bool is_serial_last_value_odd();
   int battery_count();
 
+  bool has_indicator(std::string indicator);
+
 private:
   std::istream& is_;
   std::ostream& os_;
   std::optional<bool> is_serial_containing_vowel_;
   std::optional<bool> is_serial_last_value_odd_;
   std::optional<int> battery_count_;
+  std::unordered_map<std::string, bool> indicators_;
 };
 
 }

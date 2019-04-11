@@ -8,7 +8,7 @@ void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack
 {
   using xmaho::input::get_value;
 
-  os << "Please input wire count: \n";
+  os << "Please count wires: \n";
   const auto wire_count{get_value<int>(is)};
 
   switch (wire_count) {
