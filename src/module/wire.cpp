@@ -20,19 +20,19 @@ void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack
 
   switch (wire_count) {
   case 3:
-    os << "Does RED wire exist? true(1)/false(0)\n";
+    os << "Does RED wire exist? [true(1)/false(0)]\n";
     if (!get_value<bool>(is)) {
       os << "Cut: 2(The second wire)\n";
       return;
     }
 
-    os << "Is last WHITE? true(1)/false(0)\n";
+    os << "Is last WHITE? [true(1)/false(0)]\n";
     if (get_value<bool>(is)) {
       os << "Cut: Last wire (The third)\n";
       return;
     }
 
-    os << "Does BLUE wire exist? true(1)/false(0)\n";
+    os << "Does BLUE wire exist? [true(1)/false(0)]\n";
     if (get_value<bool>(is)) {
       os << "Cut: Last BLUE wire\n";
       return;
@@ -51,25 +51,89 @@ void ktanehack::WireModule::defuse(std::istream& is, std::ostream& os, ktanehack
       }
 
       if (red_count == 0) {
-        os << "Is last Yellow? true(1)/false(0)\n";
+        os << "Is last Yellow? [true(1)/false(0)]\n";
         if (get_value<bool>(is)) {
           os << "Cut: First wire\n";
           return;
         }
       }
 
-      os << "Just one BLUE wires? true(1)/false(0)\n";
+      os << "Just one BLUE wires? [true(1)/false(0)]\n";
       if (get_value<bool>(is)) {
         os << "Cut: First wire\n";
         return;
       }
 
-      os << "Count of YELLOW is over 1(2 <= YELLOW)? true(1)/false(0)\n";
+      os << "Count of YELLOW is over 1(2 <= YELLOW)? [true(1)/false(0)]\n";
       if (get_value<bool>(is)) {
-        os << "Cut: Last wire\n";
+        os << "Cut: Last wire(The fourth)\n";
         return;
       }
       os << "Cut: 2(The second wire)\n";
+      return;
+    }
+
+  case 5:
+    if (bomb.known_serial_last_value_odd()) {
+      if (bomb.is_serial_last_value_odd()) {
+        os << "Is last BLACK? [true(1)/false(0)]\n";
+        if (get_value<bool>(is)) {
+          os << "Cut: 4(The fourth wire)\n";
+          return;
+        }
+      }
+    } else {
+      os << "Is last BLACK? [true(1)/false(0)]\n";
+      if (get_value<bool>(is)) {
+        if (bomb.is_serial_last_value_odd()) {
+          os << "Cut: 4(The fourth wire)\n";
+          return;
+        }
+      }
+    }
+
+    os << "Just one Black wires? [true(1)/false(0)]";
+    if (get_value<bool>(is)) {
+      os << "Count of YELLOW is over 1(2 <= YELLOW)? [true(1)/false(0)]";
+      if (get_value<bool>(is)) {
+        os << "Cut: First wire\n";
+        return;
+      }
+    }
+
+    os << "Does BLACK wire exist? [true(1)/false(0)]";
+    if (get_value<bool>(is)) {
+      os << "Cut: First wire\n";
+      return;
+    }
+    os << "Cut: 2(The second wire)\n";
+    return;
+
+  case 6:
+    {
+      os << "Please count YELLOW wires\n";
+      const auto yellow_count{get_value<int>(is)};
+      if (yellow_count == 0) {
+        if (bomb.is_serial_last_value_odd()) {
+          os << "Cut: 3(The third wire)\n";
+          return;
+        }
+      }
+
+      if (yellow_count == 1) {
+        os << "Count of WHITE is over 1(2 <= WHITE)? [true(1)/false(0)]";
+        if (get_value<bool>(is)) {
+          os << "Cut: 4(The fourth wire)\n";
+          return;
+        }
+      }
+
+      os << "Does RED wire exist? [true(1)/false(0)]";
+      if (get_value<bool>(is)) {
+        os << "Cut: 4(The fourth wire)\n";
+        return;
+      }
+      os << "Cut: Last wire(The sixth)\n";
       return;
     }
 

@@ -10,6 +10,21 @@ ktanehack::BombInformation::BombInformation(std::istream& is, std::ostream& os)
 {
 }
 
+bool ktanehack::BombInformation::known_serial_containing_vowel()
+{
+  return is_serial_containing_vowel_.has_value();
+}
+
+bool ktanehack::BombInformation::known_serial_last_value_odd()
+{
+  return is_serial_last_value_odd_.has_value();
+}
+
+bool ktanehack::BombInformation::known_battery_count()
+{
+  return battery_count_.has_value();
+}
+
 bool ktanehack::BombInformation::is_serial_containing_vowel()
 {
   if (is_serial_containing_vowel_)

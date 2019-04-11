@@ -29,7 +29,7 @@ inline std::unique_ptr<ktanehack::Module> make_module(std::istream& is, std::ost
 void ktanehack::show_modules(std::ostream& os)
 {
   os << "Modules:\n"
-        "  wire: horizon wire (type: w/wire/hw)\n";
+        "  wire: horizon wire (type: w/wires/hw)\n";
 }
 
 std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::ostream& os)
@@ -37,7 +37,7 @@ std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::
   static const std::unordered_map<std::string, std::function<std::unique_ptr<Module>(std::istream&, std::ostream& os)>> module_map{
     {"hw", &make_module<WireModule>},
     {"w", &make_module<WireModule>},
-    {"wire", &make_module<WireModule>},
+    {"wires", &make_module<WireModule>},
   };
 
   auto it{module_map.find(xmaho::input::get_value<std::string>(is))};

@@ -11,6 +11,11 @@ class BombInformation
 {
 public:
   BombInformation(std::istream& is, std::ostream& os);
+
+  bool known_battery_count();
+  bool known_serial_containing_vowel();
+  bool known_serial_last_value_odd();
+
   bool is_serial_containing_vowel();
   bool is_serial_last_value_odd();
   int battery_count();
