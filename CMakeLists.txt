@@ -66,7 +66,7 @@ add_compile_options(
 
 include_directories(include)
 
-add_library(modules src/module/wire.cpp src/module/button.cpp)
+add_library(modules src/module/wire.cpp src/module/button.cpp src/module/keypads.cpp)
 add_executable(executable src/main.cpp src/ktanehack.cpp src/bomb_information.cpp)
 target_link_libraries(executable modules)
 

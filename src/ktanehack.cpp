@@ -8,6 +8,7 @@
 
 #include "module/wire.hpp"
 #include "module/button.hpp"
+#include "module/keypads.hpp"
 
 std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::ostream& os)
 {
@@ -17,11 +18,14 @@ std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::
     {"wires", &std::make_unique<WireModule>},
     {"b", &std::make_unique<ButtonModule>},
     {"button", &std::make_unique<ButtonModule>},
+    {"k", &std::make_unique<KeypadsModule>},
+    {"keypads", &std::make_unique<KeypadsModule>},
   };
 
   os << "Modules:\n"
         "  Wires (horizon): w/wires/hw\n"
-        "  Button         : b/button\n";
+        "  Button         : b/button\n"
+        "  Keypads        : k/keypads\n";
 
   auto it{module_map.find(xmaho::input::get_value<std::string>(is))};
   return it != module_map.end() ? it->second() : nullptr;
