@@ -1,8 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "ktanehack.hpp"
 #include "bomb_information.hpp"
+#include "ktanehack.hpp"
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 {

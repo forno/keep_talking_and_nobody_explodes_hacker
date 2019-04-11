@@ -219,7 +219,7 @@ void ktanehack::KeypadsModule::defuse(std::istream& is, std::ostream& os, ktaneh
           "nico\n"
           "O : balloon\n"
           "Ω : omega\n"
-          "ω : omega with apostrophe\n"
+          "ω : hip\n"
           "ψ : psi\n"
           "Q\n"
           "q\n"
