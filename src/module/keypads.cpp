@@ -4,7 +4,6 @@
 #include <array>
 #include <iostream>
 #include <unordered_map>
-#include <vector>
 
 #include <xmaho/input/input.hpp>
 
@@ -67,13 +66,14 @@ std::string to_string(Symbol s)
       return "H / x";
     case Symbol::Invader:
       return "invader / shield / enemy";
-    case Symbol::KiKatakanaJapanese:  return "キ : ki";
+    case Symbol::KiKatakanaJapanese:
+      return "キ : ki";
     case Symbol::Lambda:
       return "λ : lambda";
     case Symbol::NMirror:
       return "N";
     case Symbol::NWithAngelHoop:
-      return "N with angel hoop : n_hoop_";
+      return "N with angel hoop : n_hoop";
     case Symbol::NicoMark:
       return "nico";
     case Symbol::OWithVirtical:
@@ -109,7 +109,7 @@ void ktanehack::KeypadsModule::defuse(std::istream& is, std::ostream& os, ktaneh
 {
   using xmaho::input::get_value;
 
-  static const std::unordered_map<std::string, Symbol> symbol_map{
+  const std::unordered_map<std::string, Symbol> symbol_map{
     {"A", Symbol::AWithVirtical},
     {"a", Symbol::AWithVirtical},
     {"ae", Symbol::Ash},
@@ -127,6 +127,7 @@ void ktanehack::KeypadsModule::defuse(std::istream& is, std::ostream& os, ktaneh
     {"ci", Symbol::CMirrorWithDot}, // C Inverse
     {"C", Symbol::CWithDot},
     {"c", Symbol::CWithDot},
+    {"co", Symbol::CopyRight},
     {"copy", Symbol::CopyRight},
     {"©", Symbol::CopyRight},
     {"carl", Symbol::EMirrorWithUmlaut},
@@ -189,53 +190,55 @@ void ktanehack::KeypadsModule::defuse(std::istream& is, std::ostream& os, ktaneh
     {"3", Symbol::ThreeInvalid},
     {"three", Symbol::ThreeInvalid},
   };
-  static const std::vector<std::vector<Symbol>> symbol_lines{
+  const std::array<std::array<Symbol, 7>, 6> symbol_lines{{
     {Symbol::OWithVirtical, Symbol::AWithVirtical, Symbol::Lambda, Symbol::NMirror, Symbol::Invader, Symbol::HWithAddition, Symbol::CMirrorWithDot},
     {Symbol::EMirrorWithUmlaut, Symbol::OWithVirtical, Symbol::CMirrorWithDot, Symbol::QOneStroke, Symbol::StarLine, Symbol::HWithAddition, Symbol::ExclamationInverse},
     {Symbol::CopyRight, Symbol::OmegaWithApostrophe, Symbol::QOneStroke, Symbol::Asterisk, Symbol::ThreeInvalid, Symbol::Lambda, Symbol::StarLine},
     {Symbol::Six, Symbol::QWithFill, Symbol::BWithT, Symbol::Invader, Symbol::Asterisk, Symbol::ExclamationInverse, Symbol::NicoMark},
     {Symbol::Psi, Symbol::NicoMark, Symbol::BWithT, Symbol::CWithDot, Symbol::QWithFill, Symbol::ThreeAddition, Symbol::StarFill},
     {Symbol::Six, Symbol::EMirrorWithUmlaut, Symbol::KiKatakanaJapanese, Symbol::Ash, Symbol::Psi, Symbol::NWithAngelHoop, Symbol::Omega}
-  };
+  }};
 
-  std::vector<Symbol> displayed{};
-  while (displayed.size() < 4) {
-    os << "----Symbol list----\n"
-          "A\n"
-          "ae\n"
-          "*\n"
-          "b\n"
-          "C mirror: cm\n"
-          "C\n"
-          "©\n"
-          "E mirror with umlaut : carl\n"
-          "? : exclamation\n"
-          "H / x\n"
-          "invader / shield / enemy\n"
-          "キ : ki\n"
-          "λ : lambda\n"
-          "N\n"
-          "N with angel hoop : n_hoop_\n"
-          "nico\n"
-          "O : balloon\n"
-          "Ω : omega\n"
-          "ω : hip\n"
-          "ψ : psi\n"
-          "Q\n"
-          "q\n"
-          "6\n"
-          "★ : sb\n"
-          "☆ : sw\n"
-          "3_add (like a worm)\n"
-          "3 (mistake)\n";
-    const auto it{symbol_map.find(xmaho::input::get_value<std::string>(is))};
-    if (it == symbol_map.end())
-      continue;
-    displayed.push_back(it->second);
+  std::array<Symbol, 4> displayed{};
+  for (auto& e : displayed) {
+    while (true) {
+      os << "----Symbol list----\n"
+            "A\n"
+            "ae\n"
+            "*\n"
+            "b\n"
+            "C mirror: cm\n"
+            "C\n"
+            "© : copy/co\n"
+            "E mirror with umlaut : carl\n"
+            "? : exclamation\n"
+            "H / x\n"
+            "invader / shield / enemy\n"
+            "キ : ki\n"
+            "λ : lambda\n"
+            "N\n"
+            "N with angel hoop : n_hoop\n"
+            "nico\n"
+            "O : balloon\n"
+            "Ω : omega\n"
+            "ω : hip\n"
+            "ψ : psi\n"
+            "Q\n"
+            "q\n"
+            "6\n"
+            "★ : sb\n"
+            "☆ : sw\n"
+            "3_add (like a worm)\n"
+            "3 (mistake)\n";
+      if (auto it{symbol_map.find(xmaho::input::get_value<std::string>(is))}; it != symbol_map.end()) {
+        e = it->second;
+        break;
+      }
+    }
   }
 
   for (const auto& symbol_line : symbol_lines) {
-    std::vector<std::size_t> index_map{};
+    std::array<std::size_t, displayed.size()> index_map{};
     auto is_not_found{false};
     for (auto i {0u}; i < displayed.size(); ++i) {
       const auto it{std::find(symbol_line.begin(), symbol_line.end(), displayed[i])};
@@ -243,7 +246,7 @@ void ktanehack::KeypadsModule::defuse(std::istream& is, std::ostream& os, ktaneh
         is_not_found = true;
         break;
       }
-      index_map.push_back(it - symbol_line.begin());
+      index_map[i] = it - symbol_line.begin();
     }
 
     if (is_not_found)
