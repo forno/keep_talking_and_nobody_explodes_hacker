@@ -93,10 +93,10 @@ void ktanehack::SimonModule::defuse(std::istream& is, std::ostream& os, ktanehac
     {"yellow", Color::Yellow}
   };
 
-  const auto& current_table{color_map.at(bomb.is_serial_containing_vowel())};
 
   os << "How much strikes?\n";
   const auto strike_count{get_value<int>(is)};
+  const auto& current_table{color_map.at(bomb.is_serial_containing_vowel()).at(strike_count)};
 
   std::vector<Color> colors{};
   while (true) {
@@ -115,8 +115,7 @@ void ktanehack::SimonModule::defuse(std::istream& is, std::ostream& os, ktanehac
 
     colors.push_back(it->second);
     os << "---------------\n";
-    const auto& specific_map{current_table.at(strike_count)};
     for (const auto& e : colors)
-      os << to_string(specific_map.at(e)) << '\n';
+      os << to_string(current_table.at(e)) << '\n';
   }
 }
