@@ -21,8 +21,8 @@ std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::
     {"button", &std::make_unique<ButtonModule>},
     {"k", &std::make_unique<KeypadsModule>},
     {"keypads", &std::make_unique<KeypadsModule>},
-    {"k", &std::make_unique<SimonModule>},
-    {"keypads", &std::make_unique<SimonModule>},
+    {"s", &std::make_unique<SimonModule>},
+    {"simon", &std::make_unique<SimonModule>},
   };
 
   os << "Modules:\n"
