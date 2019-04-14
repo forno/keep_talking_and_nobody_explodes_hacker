@@ -101,7 +101,7 @@ void ktanehack::SimonModule::defuse(std::istream& is, std::ostream& os, ktanehac
   std::vector<Color> colors{};
   while (true) {
     os << "-------------------------\n"
-          "Please select LAST COLOR or now STRIKE\n"
+          "Please select LAST color\n"
           "  Red:    r/red\n"
           "  Bule:   b/bule\n"
           "  Green:  g/green\n"
