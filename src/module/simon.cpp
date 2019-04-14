@@ -106,7 +106,6 @@ void ktanehack::SimonModule::defuse(std::istream& is, std::ostream& os, ktanehac
           "  Bule:   b/bule\n"
           "  Green:  g/green\n"
           "  Yellow: y/yellow\n"
-          "  Strike Numbers: 0/1/2\n"
           "  FINISH: f/finish\n";
 
     const auto input{get_value<std::string>(is)};
