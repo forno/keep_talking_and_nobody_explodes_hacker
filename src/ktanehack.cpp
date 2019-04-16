@@ -24,7 +24,7 @@ std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::
     {"keypads", &std::make_unique<KeypadsModule>},
     {"s", &std::make_unique<SimonModule>},
     {"simon", &std::make_unique<SimonModule>},
-    {"w", &std::make_unique<WhosOnFirstModule>},
+    {"wh", &std::make_unique<WhosOnFirstModule>},
     {"whos", &std::make_unique<WhosOnFirstModule>},
   };
 
@@ -33,7 +33,7 @@ std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::
         "  Button         : b/button\n"
         "  Keypads        : k/keypads\n"
         "  Simon Says     : s/simon\n"
-        "  Whos on First  : w/whos\n";
+        "  Whos on First  : wh/whos\n";
 
   auto it{module_map.find(xmaho::input::get_value<std::string>(is))};
   return it != module_map.end() ? it->second() : nullptr;
