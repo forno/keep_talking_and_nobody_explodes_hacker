@@ -105,11 +105,134 @@ std::string to_string(Place place)
 
 std::string to_string(ButtonWord button_word)
 {
+  switch (button_word) {
+  case ButtonWord::Ready:
+    return "準備OK";
+  case ButtonWord::First:
+    return "最初";
+  case ButtonWord::No:
+    return "違う";
+  case ButtonWord::Blank:
+    return "ブランク";
+  case ButtonWord::Nothing:
+    return "なし";
+  case ButtonWord::Yes:
+    return "そう";
+  case ButtonWord::What:
+    return "何？";
+  case ButtonWord::Uhhh:
+    return "えーと";
+  case ButtonWord::Left:
+    return "残り";
+  case ButtonWord::Right:
+    return "右";
+  case ButtonWord::Middle:
+    return "真ん中";
+  case ButtonWord::Okey:
+    return "オーケー";
+  case ButtonWord::Wait:
+    return "ウェイト";
+  case ButtonWord::Press:
+    return "押して";
+  case ButtonWord::You:
+    return "どう？";
+  case ButtonWord::YouAre:
+    return "導";
+  case ButtonWord::Your:
+    return "同";
+  case ButtonWord::YouRe:
+    return "動";
+  case ButtonWord::UR:
+    return "左";
+  case ButtonWord::U:
+    return "それ";
+  case ButtonWord::UhUhh:
+    return "うんうん";
+  case ButtonWord::UhUh:
+    return "そうそう";
+  case ButtonWord::Whats:
+    return "え？";
+  case ButtonWord::Done:
+    return "できた";
+  case ButtonWord::Next:
+    return "次";
+  case ButtonWord::Hold:
+    return "まって";
+  case ButtonWord::Sure:
+    return "もちろん";
+  case ButtonWord::Like:
+    return "例えば";
+  }
+  return "Out of range";
+}
+
+void show_display_information(std::ostream& os) {
+    os << 
+      "そう     : sou / yes\n"
+      "最初     : saisyo / first\n"
+      "表示     : hyouji / display\n"
+      "言う     : iu / say\n"
+      "オーケー : ok\n"
+      "何もない : nai / nothing\n"
+      "         : e / empty\n"
+      "から     : kara / blank\n"
+      "いや     : iya / no\n"
+      "解       : kaitou / led\n"
+      "回       : kaisuu / lead\n"
+      "下位     : kai / read\n"
+      "快       : kaikan / red\n"
+      "開       : hiraku / read\n"
+      "あと     : ato / lead\n"
+      "まって   : mate / matte / holdon\n"
+      "どう?    : dou? / you\n"
+      "導       : mitibiku / youare\n"
+      "同       : onaji / your\n"
+      "動       : ugoku / youre\n"
+      "どう     : dou / ur\n"
+      "大正     : taisyoujidai / there\n"
+      "対照     : taishouteki / theyre\n"
+      "対称     : taisyousei / their\n"
+      "大賞     : taisyou / theyare\n"
+      "才       : sainou / see\n"
+      "再       : saikai / c\n"
+      "最       : saidai / cee\n";
+}
+
+void show_button_information(std::ostream& os) {
+  os <<
+    "準備OK   : zyunbi / ready\n"
+    "最初     : saisyo / first\n"
+    "違う     : tigau / no\n"
+    "ブランク : buranku / blank\n"
+    "なし     : nasi / nothing\n"
+    "そう     : sou / yes\n"
+    "何？     : nani / what\n"
+    "えーと   : eto / e-to / uhhh\n"
+    "残り     : nokori / left\n"
+    "右       : migi / right\n"
+    "真ん中   : maxnnaka / mannnaka / middle\n"
+    "オーケー : okey / ok\n"
+    "ウェイト : weito / wait\n"
+    "押して   : osite / press\n"
+    "どう？   : dou? / dou / you\n"
+    "導       : mitibiku / youare\n"
+    "同       : onaji / your\n"
+    "動       : ugoku / youre\n"
+    "左       : hidari / ur\n"
+    "それ     : sore / u\n"
+    "うんうん : uxnun / uxnuxn / uhuhh / unnun / unnunn\n"
+    "そうそう : sousou / uhuh\n"
+    "え？     : e / e? / whats\n"
+    "できた   : dekita / done\n"
+    "次       : tugi / next\n"
+    "まって   : matte / hold\n"
+    "もちろん : motiroxn / motiron / sure\n"
+    "例えば   : tatoeba / like\n";
 }
 
 }
 
-void ktanehack::WhosOnFirstModule::defuse(std::istream& is, std::ostream& os, ktanehack::BombInformation& bomb)
+void ktanehack::WhosOnFirstModule::defuse(std::istream& is, std::ostream& os, ktanehack::BombInformation&)
 {
   using xmaho::input::get_value;
 
@@ -227,7 +350,101 @@ void ktanehack::WhosOnFirstModule::defuse(std::istream& is, std::ostream& os, kt
     {DisplayWord::C, Place::RightTop},
     {DisplayWord::Cee, Place::RightButtom}
   };
-  const std::unordered_map<ButtonWord, std::vector<ButtonWord>> button_map{
+  const std::unordered_map<std::string, ButtonWord> button_map{
+    {"ready", ButtonWord::Ready},
+    {"zyunbi", ButtonWord::Ready},
+    {"準備OK", ButtonWord::Ready},
+    {"first", ButtonWord::First},
+    {"saisyo", ButtonWord::First},
+    {"最初", ButtonWord::First},
+    {"no", ButtonWord::No},
+    {"tigau", ButtonWord::No},
+    {"違う", ButtonWord::No},
+    {"blank", ButtonWord::Blank},
+    {"buranku", ButtonWord::Blank},
+    {"ブランク", ButtonWord::Blank},
+    {"nothing", ButtonWord::Nothing},
+    {"nasi", ButtonWord::Nothing},
+    {"なし", ButtonWord::Nothing},
+    {"yes", ButtonWord::Yes},
+    {"sou", ButtonWord::Yes},
+    {"そう", ButtonWord::Yes},
+    {"what", ButtonWord::What},
+    {"nani", ButtonWord::What},
+    {"何？", ButtonWord::What},
+    {"uhhh", ButtonWord::Uhhh},
+    {"e-to", ButtonWord::Uhhh},
+    {"eto", ButtonWord::Uhhh},
+    {"えーと", ButtonWord::Uhhh},
+    {"left", ButtonWord::Left},
+    {"nokori", ButtonWord::Left},
+    {"残り", ButtonWord::Left},
+    {"right", ButtonWord::Right},
+    {"migi", ButtonWord::Right},
+    {"右", ButtonWord::Right},
+    {"middle", ButtonWord::Middle},
+    {"mannnaka", ButtonWord::Middle},
+    {"maxnnaka", ButtonWord::Middle},
+    {"真ん中", ButtonWord::Middle},
+    {"ok", ButtonWord::Okey},
+    {"okey", ButtonWord::Okey},
+    {"オーケー", ButtonWord::Okey},
+    {"wait", ButtonWord::Wait},
+    {"weito", ButtonWord::Wait},
+    {"ウェイト", ButtonWord::Wait},
+    {"press", ButtonWord::Press},
+    {"osite", ButtonWord::Press},
+    {"押して", ButtonWord::Press},
+    {"you", ButtonWord::You},
+    {"dou", ButtonWord::You},
+    {"dou?", ButtonWord::You},
+    {"どう？", ButtonWord::You},
+    {"youare", ButtonWord::YouAre},
+    {"mitibiku", ButtonWord::YouAre},
+    {"導", ButtonWord::YouAre},
+    {"your", ButtonWord::Your},
+    {"onaji", ButtonWord::Your},
+    {"同", ButtonWord::Your},
+    {"youre", ButtonWord::YouRe},
+    {"ugoku", ButtonWord::YouRe},
+    {"動", ButtonWord::YouRe},
+    {"ur", ButtonWord::UR},
+    {"hidari", ButtonWord::UR},
+    {"左", ButtonWord::UR},
+    {"u", ButtonWord::U},
+    {"sore", ButtonWord::U},
+    {"それ", ButtonWord::U},
+    {"uhuhh", ButtonWord::UhUhh},
+    {"unnun", ButtonWord::UhUhh},
+    {"unnunn", ButtonWord::UhUhh},
+    {"uxnuxn", ButtonWord::UhUhh},
+    {"uxnun", ButtonWord::UhUhh},
+    {"うんうん", ButtonWord::UhUhh},
+    {"uhuh", ButtonWord::UhUh},
+    {"sousou", ButtonWord::UhUh},
+    {"そうそう", ButtonWord::UhUh},
+    {"whats", ButtonWord::Whats},
+    {"e", ButtonWord::Whats},
+    {"e?", ButtonWord::Whats},
+    {"え？", ButtonWord::Whats},
+    {"done", ButtonWord::Done},
+    {"dekita", ButtonWord::Done},
+    {"できた", ButtonWord::Done},
+    {"next", ButtonWord::Next},
+    {"tugi", ButtonWord::Next},
+    {"次", ButtonWord::Next},
+    {"hold", ButtonWord::Hold},
+    {"matte", ButtonWord::Hold},
+    {"まって", ButtonWord::Hold},
+    {"sure", ButtonWord::Sure},
+    {"motiron", ButtonWord::Sure},
+    {"motiroxn", ButtonWord::Sure},
+    {"もちろん", ButtonWord::Sure},
+    {"like", ButtonWord::Like},
+    {"tatoeba", ButtonWord::Like},
+    {"例えば", ButtonWord::Like},
+  };
+  const std::unordered_map<ButtonWord, std::vector<ButtonWord>> answer_map{
     {ButtonWord::Ready, {ButtonWord::Yes, ButtonWord::Okey, ButtonWord::Middle, ButtonWord::Left, ButtonWord::Press, ButtonWord::Right, ButtonWord::Blank, ButtonWord::Ready}},
     {ButtonWord::First, {}},
     {ButtonWord::No, {}},
@@ -260,9 +477,20 @@ void ktanehack::WhosOnFirstModule::defuse(std::istream& is, std::ostream& os, kt
 
   while (true) {
     os << "What display?\n";
+    show_display_information(os);
     if (const auto it{display_map.find(get_value<std::string>(is))}; it == display_map.end())
       break;
     else
-      os << to_string(place_map.at(it->second)) << '\n';
+      os << to_string(place_map.at(it->second)) << " : Whats words?\n";
+    show_button_information(os);
+
+    if (const auto it{button_map.find(get_value<std::string>(is))}; it == button_map.end())
+      continue;
+    else {
+      os << "---ANSWERS under---\n";
+      for (const auto& e : answer_map.at(it->second))
+        os << to_string(e) << '\n';
+      os << "---ANSWERS above---\n";
+    }
   }
 }
