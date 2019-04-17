@@ -12,6 +12,7 @@
 #include "module/simon.hpp"
 #include "module/whos_on_first.hpp"
 #include "module/memory.hpp"
+#include "module/morse_code.hpp"
 
 std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::ostream& os)
 {
@@ -29,6 +30,10 @@ std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::
     {"whos", &std::make_unique<WhosOnFirstModule>},
     {"m", &std::make_unique<MemoryModule>},
     {"memory", &std::make_unique<MemoryModule>},
+    {"mo", &std::make_unique<MorseCodeModule>},
+    {"c", &std::make_unique<MorseCodeModule>},
+    {"morse", &std::make_unique<MorseCodeModule>},
+    {"code", &std::make_unique<MorseCodeModule>},
   };
 
   os << "Modules:\n"
@@ -37,7 +42,8 @@ std::unique_ptr<ktanehack::Module> ktanehack::get_module(std::istream& is, std::
         "  Keypads        : k/keypads\n"
         "  Simon Says     : s/simon\n"
         "  Whos on First  : wh/whos\n"
-        "  Memory         : m/memory\n";
+        "  Memory         : m/memory\n"
+        "  Morse Code     : mo/c/morse/code\n";
 
   auto it{module_map.find(xmaho::input::get_value<std::string>(is))};
   return it != module_map.end() ? it->second() : nullptr;
