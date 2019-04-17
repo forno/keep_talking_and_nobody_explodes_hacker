@@ -65,7 +65,7 @@ enum class ButtonWord
   Left,
   Right,
   Middle,
-  Okey,
+  Okay,
   Wait,
   Press,
   You,
@@ -74,7 +74,7 @@ enum class ButtonWord
   YouRe,
   UR,
   U,
-  UhUhh,
+  UhHuh,
   UhUh,
   Whats,
   Done,
@@ -128,7 +128,7 @@ std::string to_string(ButtonWord button_word)
     return "右";
   case ButtonWord::Middle:
     return "真ん中";
-  case ButtonWord::Okey:
+  case ButtonWord::Okay:
     return "オーケー";
   case ButtonWord::Wait:
     return "ウェイト";
@@ -146,7 +146,7 @@ std::string to_string(ButtonWord button_word)
     return "左";
   case ButtonWord::U:
     return "それ";
-  case ButtonWord::UhUhh:
+  case ButtonWord::UhHuh:
     return "うんうん";
   case ButtonWord::UhUh:
     return "そうそう";
@@ -220,7 +220,7 @@ void show_button_information(std::ostream& os) {
     "動       : ugoku / youre\n"
     "左       : hidari / ur\n"
     "それ     : sore / u\n"
-    "うんうん : uxnun / uxnuxn / uhuhh / unnun / unnunn\n"
+    "うんうん : uxnun / uxnuxn / uhhuh / unnun / unnunn\n"
     "そうそう : sousou / uhuh\n"
     "え？     : e / e? / whats\n"
     "できた   : dekita / done\n"
@@ -386,9 +386,9 @@ void ktanehack::WhosOnFirstModule::defuse(std::istream& is, std::ostream& os, kt
     {"mannnaka", ButtonWord::Middle},
     {"maxnnaka", ButtonWord::Middle},
     {"真ん中", ButtonWord::Middle},
-    {"ok", ButtonWord::Okey},
-    {"okey", ButtonWord::Okey},
-    {"オーケー", ButtonWord::Okey},
+    {"ok", ButtonWord::Okay},
+    {"okey", ButtonWord::Okay},
+    {"オーケー", ButtonWord::Okay},
     {"wait", ButtonWord::Wait},
     {"weito", ButtonWord::Wait},
     {"ウェイト", ButtonWord::Wait},
@@ -414,12 +414,12 @@ void ktanehack::WhosOnFirstModule::defuse(std::istream& is, std::ostream& os, kt
     {"u", ButtonWord::U},
     {"sore", ButtonWord::U},
     {"それ", ButtonWord::U},
-    {"uhuhh", ButtonWord::UhUhh},
-    {"unnun", ButtonWord::UhUhh},
-    {"unnunn", ButtonWord::UhUhh},
-    {"uxnuxn", ButtonWord::UhUhh},
-    {"uxnun", ButtonWord::UhUhh},
-    {"うんうん", ButtonWord::UhUhh},
+    {"uhhuh", ButtonWord::UhHuh},
+    {"unnun", ButtonWord::UhHuh},
+    {"unnunn", ButtonWord::UhHuh},
+    {"uxnuxn", ButtonWord::UhHuh},
+    {"uxnun", ButtonWord::UhHuh},
+    {"うんうん", ButtonWord::UhHuh},
     {"uhuh", ButtonWord::UhUh},
     {"sousou", ButtonWord::UhUh},
     {"そうそう", ButtonWord::UhUh},
@@ -445,34 +445,34 @@ void ktanehack::WhosOnFirstModule::defuse(std::istream& is, std::ostream& os, kt
     {"例えば", ButtonWord::Like},
   };
   const std::unordered_map<ButtonWord, std::vector<ButtonWord>> answer_map{
-    {ButtonWord::Ready, {ButtonWord::Yes, ButtonWord::Okey, ButtonWord::Middle, ButtonWord::Left, ButtonWord::Press, ButtonWord::Right, ButtonWord::Blank, ButtonWord::Ready}},
-    {ButtonWord::First, {}},
-    {ButtonWord::No, {}},
-    {ButtonWord::Blank, {}},
-    {ButtonWord::Nothing, {}},
-    {ButtonWord::Yes, {}},
-    {ButtonWord::What, {}},
-    {ButtonWord::Uhhh, {}},
-    {ButtonWord::Left, {}},
-    {ButtonWord::Right, {}},
-    {ButtonWord::Middle, {}},
-    {ButtonWord::Okey, {}},
-    {ButtonWord::Wait, {}},
-    {ButtonWord::Press, {}},
-    {ButtonWord::You, {}},
-    {ButtonWord::YouAre, {}},
-    {ButtonWord::Your, {}},
-    {ButtonWord::YouRe, {}},
-    {ButtonWord::UR, {}},
-    {ButtonWord::U, {}},
-    {ButtonWord::UhUhh, {}},
-    {ButtonWord::UhUh, {}},
-    {ButtonWord::Whats, {}},
-    {ButtonWord::Done, {}},
-    {ButtonWord::Next, {}},
-    {ButtonWord::Hold, {}},
-    {ButtonWord::Sure, {}},
-    {ButtonWord::Like, {}}
+    {ButtonWord::Ready, {ButtonWord::Yes, ButtonWord::Okay, ButtonWord::Middle, ButtonWord::Left, ButtonWord::Press, ButtonWord::Right, ButtonWord::Blank, ButtonWord::Ready}},
+    {ButtonWord::First, {ButtonWord::Left, ButtonWord::Okay, ButtonWord::Yes, ButtonWord::Middle, ButtonWord::No, ButtonWord::Right, ButtonWord::Nothing, ButtonWord::Uhhh, ButtonWord::Wait, ButtonWord::Ready, ButtonWord::Blank, ButtonWord::What, ButtonWord::Press, ButtonWord::First}},
+    {ButtonWord::No, {ButtonWord::Blank, ButtonWord::Uhhh, ButtonWord::Wait, ButtonWord::First, ButtonWord::What, ButtonWord::Ready, ButtonWord::Right, ButtonWord::Yes, ButtonWord::Nothing, ButtonWord::Left, ButtonWord::Press, ButtonWord::Okay, ButtonWord::No}},
+    {ButtonWord::Blank, {ButtonWord::Wait, ButtonWord::Right, ButtonWord::Okay, ButtonWord::Middle, ButtonWord::Blank}},
+    {ButtonWord::Nothing, {ButtonWord::Uhhh, ButtonWord::Right, ButtonWord::Okay, ButtonWord::Middle, ButtonWord::Yes, ButtonWord::Blank, ButtonWord::No, ButtonWord::Press, ButtonWord::Left, ButtonWord::What, ButtonWord::Wait, ButtonWord::First, ButtonWord::Nothing}},
+    {ButtonWord::Yes, {ButtonWord::Okay, ButtonWord::Right, ButtonWord::Uhhh, ButtonWord::Middle, ButtonWord::First, ButtonWord::What, ButtonWord::Press, ButtonWord::Ready, ButtonWord::Nothing, ButtonWord::Yes}},
+    {ButtonWord::What, {ButtonWord::Uhhh, ButtonWord::What, ButtonWord::Left, ButtonWord::Nothing, ButtonWord::Ready, ButtonWord::Blank, ButtonWord::Middle, ButtonWord::No, ButtonWord::Okay, ButtonWord::First, ButtonWord::Wait}},
+    {ButtonWord::Uhhh, {ButtonWord::Ready, ButtonWord::Nothing, ButtonWord::Left, ButtonWord::What, ButtonWord::Okay, ButtonWord::Yes, ButtonWord::Right, ButtonWord::No, ButtonWord::Press, ButtonWord::Blank, ButtonWord::Uhhh}},
+    {ButtonWord::Left, {ButtonWord::Right, ButtonWord::Left}},
+    {ButtonWord::Right, {ButtonWord::Yes, ButtonWord::Nothing, ButtonWord::Ready, ButtonWord::Press, ButtonWord::No, ButtonWord::Wait, ButtonWord::What, ButtonWord::Right}},
+    {ButtonWord::Middle, {ButtonWord::Blank, ButtonWord::Ready, ButtonWord::Okay, ButtonWord::What, ButtonWord::Nothing, ButtonWord::Press, ButtonWord::No, ButtonWord::Wait, ButtonWord::Left, ButtonWord::Middle}},
+    {ButtonWord::Okay, {ButtonWord::Middle, ButtonWord::No, ButtonWord::First, ButtonWord::Yes, ButtonWord::Uhhh, ButtonWord::Nothing, ButtonWord::Wait, ButtonWord::Okay}},
+    {ButtonWord::Wait, {ButtonWord::Uhhh, ButtonWord::No, ButtonWord::Blank, ButtonWord::Okay, ButtonWord::Yes, ButtonWord::Left, ButtonWord::First, ButtonWord::Press, ButtonWord::What, ButtonWord::Wait}},
+    {ButtonWord::Press, {ButtonWord::Right, ButtonWord::Middle, ButtonWord::Yes, ButtonWord::Ready, ButtonWord::Press}},
+    {ButtonWord::You, {ButtonWord::Sure, ButtonWord::YouAre, ButtonWord::Your, ButtonWord::YouRe, ButtonWord::Next, ButtonWord::UhHuh, ButtonWord::UR, ButtonWord::Hold, ButtonWord::Whats, ButtonWord::You}},
+    {ButtonWord::YouAre, {ButtonWord::Your, ButtonWord::Next, ButtonWord::Like, ButtonWord::UhHuh, ButtonWord::Whats, ButtonWord::Done, ButtonWord::UhUh, ButtonWord::Hold, ButtonWord::You, ButtonWord::U, ButtonWord::YouRe, ButtonWord::Sure, ButtonWord::UR, ButtonWord::YouAre}},
+    {ButtonWord::Your, {ButtonWord::UhUh, ButtonWord::YouAre, ButtonWord::UhHuh, ButtonWord::Your}},
+    {ButtonWord::YouRe, {ButtonWord::You, ButtonWord::YouRe}},
+    {ButtonWord::UR, {ButtonWord::Done, ButtonWord::U, ButtonWord::UR}},
+    {ButtonWord::U, {ButtonWord::UhHuh, ButtonWord::Sure, ButtonWord::Next, ButtonWord::Whats, ButtonWord::YouRe, ButtonWord::UR, ButtonWord::UhUh, ButtonWord::Done, ButtonWord::U}},
+    {ButtonWord::UhHuh, {ButtonWord::UhHuh}},
+    {ButtonWord::UhUh, {ButtonWord::UR, ButtonWord::U, ButtonWord::YouAre, ButtonWord::YouRe, ButtonWord::Next, ButtonWord::UhUh}},
+    {ButtonWord::Whats, {ButtonWord::You, ButtonWord::Hold, ButtonWord::YouRe, ButtonWord::Your, ButtonWord::U, ButtonWord::Done, ButtonWord::UhUh, ButtonWord::Like, ButtonWord::YouAre, ButtonWord::UhHuh, ButtonWord::UR, ButtonWord::Next, ButtonWord::Whats}},
+    {ButtonWord::Done, {ButtonWord::Sure, ButtonWord::UhHuh, ButtonWord::Next, ButtonWord::Whats, ButtonWord::Your, ButtonWord::UR, ButtonWord::YouRe, ButtonWord::Hold, ButtonWord::Like, ButtonWord::You, ButtonWord::U, ButtonWord::YouAre, ButtonWord::UhUh, ButtonWord::Done}},
+    {ButtonWord::Next, {ButtonWord::Whats, ButtonWord::UhHuh, ButtonWord::UhUh, ButtonWord::Your, ButtonWord::Hold, ButtonWord::Sure, ButtonWord::Next}},
+    {ButtonWord::Hold, {ButtonWord::YouAre, ButtonWord::U, ButtonWord::Done, ButtonWord::UhUh, ButtonWord::You, ButtonWord::UR, ButtonWord::Sure, ButtonWord::Whats, ButtonWord::YouRe, ButtonWord::Next, ButtonWord::Hold}},
+    {ButtonWord::Sure, {ButtonWord::YouAre, ButtonWord::Done, ButtonWord::Like, ButtonWord::YouRe, ButtonWord::You, ButtonWord::Hold, ButtonWord::UhHuh, ButtonWord::UR, ButtonWord::Sure}},
+    {ButtonWord::Like, {ButtonWord::YouRe, ButtonWord::Next, ButtonWord::U, ButtonWord::UR, ButtonWord::Hold, ButtonWord::Done, ButtonWord::UhUh, ButtonWord::Whats, ButtonWord::UhHuh, ButtonWord::You, ButtonWord::Like}}
   };
 
   while (true) {
