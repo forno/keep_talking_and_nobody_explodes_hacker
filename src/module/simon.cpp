@@ -27,7 +27,7 @@ std::string to_string(Color color)
   case Color::Blue:
     return "Blue";
   case Color::Green:
-    return "Ggreen";
+    return "Green";
   case Color::Yellow:
     return "Yellow";
   }
